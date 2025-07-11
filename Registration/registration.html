@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Member Registration - Excellens</title>
+    <style>
+        :root {
+            --primary-red: #C62828; /* Softer, deeper red */
+            --primary-red-darker: #A91717;
+            --text-dark: #424242;
+            --text-medium: #757575;
+            --text-light: #BDBDBD;
+            --border-light: #E0E0E0;
+            --background-soft: #FDFDFD; /* Very soft off-white for body */
+            --background-panel: #FFFFFF; /* Clean white for panels/cards */
+            --font-family-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family-main);
+        }
+
+        body {
+            background-color: var(--background-soft);
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: row;
+            perspective: 1000px; /* For 3D animations if any */
+        }
+
+        /* Left Panel Styling (Consistent with Login) */
+        .left-panel {
+            flex: 1;
+            background-color: var(--background-panel); /* Was --primary-red with opacity, now solid for better text readability */
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInSlide 1s ease-out;
+            border-right: 1px solid var(--border-light);
+        }
+
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-dark); /* Adjusted for better contrast on white/light panel */
+            position: relative;
+            z-index: 5;
+        }
+
+        .welcome-text h1 {
+            font-size: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .welcome-text p {
+            font-size: 15px;
+        }
+
+        .welcome-text a,
+        .terms a { /* Moved general link styling here */
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .welcome-text a:hover,
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .illustration-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .illustration-container .excellens-logo { /* Renamed from your HTML's .excellens-logo to match context */
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px; /* Optional */
+        }
+        
+        .background-shape {
+            position: absolute;
+            background-color: var(--primary-red);
+            opacity: 0.08;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite alternate;
+            border-radius: 50%;
+        }
+        .shape-1 { width: 200px; height: 200px; top: -50px; left: -50px; }
+        .shape-2 { width: 300px; height: 300px; bottom: -100px; right: -100px; animation-delay: 0.5s;}
+        .shape-3 { width: 150px; height: 150px; bottom: 50px; left: 50px; animation-delay: 1s;}
+        .shape-4 { width: 250px; height: 250px; top: -100px; right: -50px; animation-delay: 1.5s;}
+
+
+        /* Right Panel & Registration Form Styling */
+        .right-panel {
+            flex: 1.5; /* Give a bit more space to the form panel */
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Center the form card */
+            animation: fadeInSlide 1s ease-out 0.2s; /* Slight delay */
+            background-color: var(--background-soft);
+        }
+
+        .login-form { /* Reusing class name, but it's the registration form container */
+            width: 100%;
+            max-width: 500px; /* Max width for the form card */
+            background-color: var(--background-panel);
+            border-radius: 12px; /* Softer radius for the card */
+            padding: 30px 40px; /* Padding inside the card */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07); /* Softer shadow */
+        }
+
+        .login-heading { /* For "Faculty Registration" */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-heading h2 {
+            font-size: 24px; /* Adjusted size */
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .login-heading p {
+            color: var(--text-medium);
+            font-size: 15px;
+        }
+
+        /* Form Input Styling */
+        .email-input, /* Generic input style */
+        .email-container .email-input { /* Specific for email prefix */
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px; /* Softer radius */
+            margin-bottom: 20px; /* Space between inputs */
+            font-size: 15px;
+            color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .email-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15); /* Softer focus ring */
+        }
+        
+        /* Email Container with fixed domain */
+        .email-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--background-panel); /* Ensure consistent background */
+        }
+
+        .email-container:focus-within {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.15);
+        }
+
+        .email-container .email-input { /* Input for prefix */
+            border: none; /* Border is on parent .email-container */
+            margin-bottom: 0; /* No margin inside the container */
+            border-radius: 8px 0 0 8px; /* Adjust radius for combined look */
+            flex-grow: 1; /* Allow input to take available space */
+        }
+        .email-container .email-input:focus {
+            box-shadow: none; /* Parent handles focus shadow */
+        }
+
+
+        .email-domain {
+            color: var(--text-medium);
+            padding: 12px 15px; /* Match input padding */
+            font-size: 15px;
+            white-space: nowrap;
+            background-color: #F9F9F9; /* Slightly different bg for visual separation */
+            border-left: 1px solid var(--border-light);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 15px;
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 20px; /* Space before terms */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-red-darker);
+            transform: translateY(-2px); /* Subtle lift */
+        }
+        .submit-btn:active {
+            transform: translateY(0px) scale(0.99);
+        }
+
+
+        .terms {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-medium);
+        }
+        .terms label {
+            cursor: pointer;
+        }
+        .terms input[type="checkbox"] {
+            margin-right: 8px;
+            vertical-align: middle;
+            accent-color: var(--primary-red); /* Styles the checkbox color */
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float { /* For background shapes */
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+             .right-panel {
+                flex: 1; /* Equal flex for tablet */
+                padding: 30px;
+            }
+            .login-form {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-panel {
+                display: none; /* As per original design, can be changed */
+            }
+            .right-panel {
+                width: 100%;
+                min-height: 100vh; /* Ensure it fills screen if left panel is gone */
+                padding: 30px 20px;
+            }
+            .login-form {
+                max-width: 450px; /* Constrain form width even on mobile */
+                margin: auto; /* Center form if it's narrower than panel */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-form {
+                padding: 20px;
+            }
+            .login-heading h2 {
+                font-size: 20px;
+            }
+            .login-heading p {
+                font-size: 14px;
+            }
+            .email-input, .email-container .email-input, .email-domain, .submit-btn {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+            .terms {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="welcome-text">
+                <h1>Welcome to Excellens</h1>
+                <p>Join us to experience a world-class academic environment.</p>
+            </div>
+            <div class="illustration-container">
+                <img src="../Images/Excel.png" alt="Excellens Illustration" class="excellens-logo">
+            </div>
+            
+            <div class="background-shape shape-1"></div>
+            <div class="background-shape shape-2"></div>
+            <div class="background-shape shape-3"></div>
+            <div class="background-shape shape-4"></div>
+        </div>
+        
+        <div class="right-panel">
+            <div class="login-form"> <div class="login-heading">
+                    <h2>Faculty Registration</h2>
+                    <p>Please fill in your details to complete registration.</p>
+                </div>
+
+                <form id="facultyRegistration">
+                    <input type="text" class="email-input" id="firstName" name="firstName" placeholder="First Name" required>
+                    <input type="text" class="email-input" id="middleName" name="middleName" placeholder="Middle Name (Optional)">
+                    <input type="text" class="email-input" id="lastName" name="lastName" placeholder="Last Name" required>
+                    
+                    <div class="email-container">
+                        <input type="text" class="email-input" id="emailPrefix" name="emailPrefix" placeholder="Email Username" required>
+                        <span class="email-domain">@g.batstate-u.edu.ph</span>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Register Account</button>
+
+                    <div class="terms">
+                        <label>
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" required> I Agree to 
+                            <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('facultyRegistration').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent actual form submission for now
+
+            // Example: You can collect form data here
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const emailPrefix = document.getElementById('emailPrefix').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+
+            if (!agreeTerms) {
+                alert('You must agree to the Terms & Conditions and Privacy Policy.');
+                return;
+            }
+
+            // Log data or send to a server
+            console.log('Registration Data:', {
+                firstName,
+                lastName,
+                email: emailPrefix + '@g.batstate-u.edu.ph',
+                agreeTerms
+            });
+            
+            // Placeholder for actual submission success
+            alert('Registration submitted successfully! (Check console for data)');
+            
+            // Optionally, you can reset the form:
+            // this.reset(); 
+        });
+    </script>
+</body>
+</html>
