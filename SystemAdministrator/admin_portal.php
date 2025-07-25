@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExcelLens - Admin Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-         #editCollegeModal input[type="text"] {
-        background-color: white !important;
-        color: black;
-    }
         :root {
             --primary: #990000;
             --primary-light: #b30000;
@@ -49,28 +47,15 @@
             color: var(--dark-gray);
             transition: all 0.3s ease;
         }
-        
-        .admin-container {
-            display: flex;
-            min-height: 100vh;
-        }
-        
-        /* Sidebar Navigation */
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 0;
-            position: fixed;
-            height: 100vh;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: rgba(220, 53, 69, 0.05);  /* 5% opacity of your --danger color */
+}
 
-        .sidebar.collapsed {
-            width: 70px;
-        }
+
+
+        
         
         .logo {
             text-align: center;
@@ -108,9 +93,6 @@
             transition: opacity 0.3s ease;
         }
 
-        .sidebar.collapsed .logo h3 {
-            opacity: 0;
-        }
         
         .nav-menu {
             margin-top: 20px;
@@ -131,9 +113,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .sidebar.collapsed .nav-section-title {
-            opacity: 0;
-        }
+        
         
         .nav-item {
             padding: 12px 15px;
@@ -178,9 +158,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .sidebar.collapsed .nav-item span {
-            opacity: 0;
-        }
+        
 
         .nav-item .badge {
             margin-left: auto;
@@ -200,9 +178,6 @@
             transition: margin-left 0.3s ease;
         }
 
-        .sidebar.collapsed ~ .main-content {
-            margin-left: 70px;
-        }
         
         .header {
             background: var(--white);
@@ -249,6 +224,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            margin-left: auto; /* Key line */
         }
 
         .theme-toggle {
@@ -437,6 +413,12 @@
 
         .module-body {
             padding: 30px;
+        }
+        
+        /* Centered modules */
+        .centered-module .module-body {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         /* Enhanced Tabs */
@@ -683,49 +665,59 @@
             color: var(--text-muted);
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                transform: translateX(-100%);
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-
-            .mobile-toggle {
-                display: block;
-                background: var(--primary);
-                color: white;
-                border: none;
-                padding: 10px;
-                border-radius: 8px;
-                margin-bottom: 20px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                padding: 15px;
-            }
-
-            .content-area {
-                padding: 15px;
-            }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
         }
+        
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            width: 500px;
+            max-width: 90%;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        
 
         .mobile-toggle {
             display: none;
@@ -746,84 +738,50 @@
         .slide-in {
             animation: slideInRight 0.3s ease-out;
         }
+        .btn-blue-outline {
+            color: #007bff;
+            border: 1px solid #007bff;
+            background-color: transparent;
+            transition: 0.3s ease;
+        }
+
+        .btn-blue-outline:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .data-table th,
+        .data-table td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid #ccc;
+        }
+        .data-table th {
+            background-color: #f5f5f5;
+        }
+        .section-info {
+    font-size: 0.95rem;
+    color: #444;
+    margin: 1rem 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="admin-container">
         <!-- Sidebar Navigation -->
-        <div class="sidebar" id="sidebar">
-            <div class="logo">
-                <button class="logo-toggle" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23fff'/%3E%3Cpath d='M20 30h60v8H20zm0 16h60v8H20zm0 16h40v8H20z' fill='%23990000'/%3E%3C/svg%3E" alt="ExcelLens Logo">
-                <h3>Admin Portal</h3>
-            </div>
-            
-            <div class="nav-menu">
-                <div class="nav-section">
-                    <div class="nav-section-title">Dashboard</div>
-                    <div class="nav-item active" onclick="showModule('dashboard')">
-                        <i class="fas fa-chart-pie"></i>
-                        <span>Overview</span>
-                    </div>
-                    <div class="nav-item" onclick="showModule('analytics')">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Analytics</span>
-                    </div>
-                </div>
-
-                <div class="nav-section">
-                    <div class="nav-section-title">Management</div>
-                    <div class="nav-item" onclick="showModule('account-management')">
-                        <i class="fas fa-users-cog"></i>
-                        <span>Account Management</span>
-                        <span class="badge">5</span>
-                    </div>
-                    <div class="nav-item" onclick="showModule('system-configuration')">
-                        <i class="fas fa-cog"></i>
-                        <span>System Configuration</span>
-                    </div>
-                </div>
-
-                <div class="nav-section">
-                    <div class="nav-section-title">System</div>
-                    <div class="nav-item" onclick="showModule('reports')">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Reports</span>
-                    </div>
-                    <div class="nav-item" onclick="showModule('settings')">
-                        <i class="fas fa-sliders-h"></i>
-                        <span>Settings</span>
-                    </div>
-                    <div class="nav-item">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Logout</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php include 'sidebar.php'; ?>
         
         <!-- Main Content Area -->
         <div class="main-content">
             <div class="header">
-                <div class="header-left">
-                    <button class="mobile-toggle" onclick="toggleMobileSidebar()">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <div>
-                        <h1 class="header-title">Admin Dashboard</h1>
-                        <div class="breadcrumb">
-                            <div class="breadcrumb-item">
-                                <i class="fas fa-home"></i>
-                                <span>Dashboard</span>
-                            </div>
-                            <div class="breadcrumb-item">Overview</div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="header-right">
                     <button class="theme-toggle" onclick="toggleTheme()">
                         <i class="fas fa-moon"></i>
@@ -844,975 +802,57 @@
             </div>
 
             <div class="content-area">
-                <!-- Dashboard Module -->
-                <div id="dashboard" class="module-container">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon primary">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                            </div>
-                            <div class="stat-value">1,247</div>
-                            <div class="stat-label">Total Users</div>
-                            <div class="stat-trend trend-up">
-                                <i class="fas fa-arrow-up"></i>
-                                <span>+12% from last month</span>
-                            </div>
-                        </div>
+               
+            <!-- Account Management Module -->          
+            <?php include 'account_management.php'; ?>
 
-                        <div class="stat-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon success">
-                                    <i class="fas fa-user-check"></i>
-                                </div>
-                            </div>
-                            <div class="stat-value">1,156</div>
-                            <div class="stat-label">Active Users</div>
-                            <div class="stat-trend trend-up">
-                                <i class="fas fa-arrow-up"></i>
-                                <span>+8% from last month</span>
-                            </div>
-                        </div>
+            <!-- System Configuration -->
+            <?php include 'system_config.php'; ?>
 
-                        <div class="stat-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon warning">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                            </div>
-                            <div class="stat-value">23</div>
-                            <div class="stat-label">Pending Approvals</div>
-                            <div class="stat-trend trend-down">
-                                <i class="fas fa-arrow-down"></i>
-                                <span>-5% from last week</span>
-                            </div>
-                        </div>
+            <!-- Admin Settings -->
+            <?php include 'admin_settings.php'; ?>
 
-                        <div class="stat-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon info">
-                                    <i class="fas fa-graduation-cap"></i>
-                                </div>
-                            </div>
-                            <div class="stat-value">15</div>
-                            <div class="stat-label">Academic Programs</div>
-                            <div class="stat-trend trend-up">
-                                <i class="fas fa-arrow-up"></i>
-                                <span>+2 new programs</span>
-                            </div>
-                        </div>
-                    </div>
+                
 
-                    <div class="chart-container">
-                        <div class="chart-header">
-                            <h3 class="chart-title">User Registration Trends</h3>
-                            <select class="form-control" style="width: auto;">
-                                <option>Last 30 days</option>
-                                <option>Last 90 days</option>
-                                <option>Last year</option>
-                            </select>
-                        </div>
-                        <div class="chart-wrapper">
-                            <i class="fas fa-chart-area fa-3x"></i>
-                            <span style="margin-left: 15px;">Chart visualization would be displayed here</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Account Management Module -->
-                <div id="account-management" class="module-container" style="display: none;">
-                    <div class="module-header">
-                        <h2 class="module-title">
-                            <i class="fas fa-users-cog"></i>
-                            Account Management
-                        </h2>
-                    </div>
-                    <div class="module-body">
-                        <div class="nav-tabs">
-                            <div class="nav-tab active" onclick="showUserType('vcaa')">
-                                <i class="fas fa-user-tie"></i>
-                                VCAA
-                            </div>
-                            <div class="nav-tab" onclick="showUserType('deans')">
-                                <i class="fas fa-user-graduate"></i>
-                                College Deans
-                            </div>
-                            <div class="nav-tab" onclick="showUserType('chairs')">
-                                <i class="fas fa-user-cog"></i>
-                                Department Chairs
-                            </div>
-                            <div class="nav-tab" onclick="showUserType('faculty')">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                                Faculty
-                                <span class="badge">5</span>
-                            </div>
-                            <div class="nav-tab" onclick="showUserType('students')">
-                                <i class="fas fa-user-graduate"></i>
-                                Students
-                            </div>
-                        </div>
-                        
-                        <!-- VCAA Accounts -->
-                        <div id="vcaa-accounts" class="user-accounts">
-                            <div class="table-container">
-                                <div class="table-header">
-                                    <h3 class="table-title">Vice Chancellor of Academic Affairs Accounts</h3>
-                                    <div class="table-actions">
-                                        <button class="btn btn-primary">
-                                            <i class="fas fa-plus"></i>
-                                            Create VCAA Account
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Date Created</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <img src="https://ui-avatars.com/api/?name=Maria+Santos&background=990000&color=fff" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                                                    <strong>Dr. Maria Santos</strong>
-                                                </div>
-                                            </td>
-                                            <td>vc.academic@batstate-u.edu.ph</td>
-                                            <td>May 15, 2023</td>
-                                            <td><span class="status-badge active">Active</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        
-                        <!-- College Deans Accounts -->
-                        <div id="deans-accounts" class="user-accounts" style="display: none;">
-                            <div class="table-container">
-                                <div class="table-header">
-                                    <h3 class="table-title">College Dean Accounts</h3>
-                                    <div class="table-actions">
-                                        <button class="btn btn-primary">
-                                            <i class="fas fa-plus"></i>
-                                            Create Dean Account
-                                        </button>
-                                        <button class="btn btn-outline">
-                                            <i class="fas fa-download"></i>
-                                            Export
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>College</th>
-                                            <th>Email</th>
-                                            <th>Date Created</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <img src="https://ui-avatars.com/api/?name=Juan+Dela+Cruz&background=990000&color=fff" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                                                    <strong>Dr. Juan Dela Cruz</strong>
-                                                </div>
-                                            </td>
-                                            <td>College of Engineering</td>
-                                            <td>eng.dean@batstate-u.edu.ph</td>
-                                            <td>June 20, 2023</td>
-                                            <td><span class="status-badge active">Active</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <img src="https://ui-avatars.com/api/?name=Rosa+Martinez&background=990000&color=fff" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                                                    <strong>Dr. Rosa Martinez</strong>
-                                                </div>
-                                            </td>
-                                            <td>College of Business</td>
-                                            <td>bus.dean@batstate-u.edu.ph</td>
-                                            <td>July 8, 2023</td>
-                                            <td><span class="status-badge active">Active</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Department Chairs Accounts -->
-                        <div id="chairs-accounts" class="user-accounts" style="display: none;">
-                            <div class="table-container">
-                                <div class="table-header">
-                                    <h3 class="table-title">Department Chair Accounts</h3>
-                                    <div class="table-actions">
-                                        <button class="btn btn-primary">
-                                            <i class="fas fa-plus"></i>
-                                            Create Chair Account
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>College</th>
-                                            <th>Email</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <img src="https://ui-avatars.com/api/?name=Carlos+Rivera&background=990000&color=fff" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                                                    <strong>Dr. Carlos Rivera</strong>
-                                                </div>
-                                            </td>
-                                            <td>Computer Science</td>
-                                            <td>College of Engineering</td>
-                                            <td>cs.chair@batstate-u.edu.ph</td>
-                                            <td><span class="status-badge active">Active</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        
-                        <!-- Faculty Approval Section -->
-                        <div id="faculty-accounts" class="user-accounts" style="display: none;">
-                            <div class="table-container">
-                                <div class="table-header">
-                                    <h3 class="table-title">Faculty Registration Requests</h3>
-                                    <div class="table-actions">
-                                        <button class="btn btn-success">
-                                            <i class="fas fa-check-double"></i>
-                                            Approve All
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Email</th>
-                                            <th>Date Registered</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <img src="https://ui-avatars.com/api/?name=Anna+Reyes&background=990000&color=fff" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                                                    <strong>Prof. Anna Reyes</strong>
-                                                </div>
-                                            </td>
-                                            <td>Computer Science</td>
-                                            <td>areyes@g.batstate-u.edu.ph</td>
-                                            <td>July 10, 2023</td>
-                                            <td><span class="status-badge pending">Pending</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-success">
-                                                    <i class="fas fa-check"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <img src="https://ui-avatars.com/api/?name=Miguel+Torres&background=990000&color=fff" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                                                    <strong>Prof. Miguel Torres</strong>
-                                                </div>
-                                            </td>
-                                            <td>Mathematics</td>
-                                            <td>mtorres@g.batstate-u.edu.ph</td>
-                                            <td>July 12, 2023</td>
-                                            <td><span class="status-badge pending">Pending</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-success">
-                                                    <i class="fas fa-check"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Students Section -->
-                        <div id="students-accounts" class="user-accounts" style="display: none;">
-                            <div class="table-container">
-                                <div class="table-header">
-                                    <h3 class="table-title">Student Accounts</h3>
-                                    <div class="table-actions">
-                                        <input type="search" class="form-control" placeholder="Search students..." style="width: 250px;">
-                                        <button class="btn btn-outline">
-                                            <i class="fas fa-filter"></i>
-                                            Filter
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Student ID</th>
-                                            <th>Name</th>
-                                            <th>Program</th>
-                                            <th>Year Level</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>2023-0001</strong></td>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 10px;">
-                                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=990000&color=fff" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                                                    <strong>John Doe</strong>
-                                                </div>
-                                            </td>
-                                            <td>Computer Science</td>
-                                            <td>4th Year</td>
-                                            <td><span class="status-badge active">Active</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- System Configuration Module -->
-                <div id="system-configuration" class="module-container" style="display: none;">
-                    <div class="module-header">
-                        <h2 class="module-title">
-                            <i class="fas fa-cog"></i>
-                            System Configuration
-                        </h2>
-                    </div>
-                    <div class="module-body">
-                        <div class="nav-tabs">
-                            <div class="nav-tab active" onclick="showConfigTab('academic-structure')">
-                                <i class="fas fa-university"></i>
-                                Academic Structure
-                            </div>
-                            <div class="nav-tab" onclick="showConfigTab('view-structure')">
-                                <i class="fas fa-eye"></i>
-                                View Structure
-                            </div>
-                            <div class="nav-tab" onclick="showConfigTab('email-templates')">
-                                <i class="fas fa-envelope"></i>
-                                Email Templates
-                            </div>
-                        </div>
-
-                        <!-- Academic Structure Tab -->
-                        <div id="academic-structure-tab" class="config-content">
-                            <div class="nav-tabs" style="margin-top: 0;">
-                                <div class="nav-tab active" onclick="showSubTab('colleges')">
-                                    <i class="fas fa-building"></i>
-                                    Department
-                                </div>
-                                <div class="nav-tab" onclick="showSubTab('programs')">
-                                    <i class="fas fa-graduation-cap"></i>
-                                    Programs
-                                </div>
-                                <div class="nav-tab" onclick="showSubTab('majors')">
-                                    <i class="fas fa-book"></i>
-                                    Majors
-                                </div>
-                                <div class="nav-tab" onclick="showSubTab('year-levels')">
-                                    <i class="fas fa-layer-group"></i>
-                                    Year Levels
-                                </div>
-                                <div class="nav-tab" onclick="showSubTab('sections')">
-                                    <i class="fas fa-users"></i>
-                                    Sections
-                                </div>
-                            </div>
-
-                           <div id="subtab-colleges" class="subtab-content">
-    <div class="form-grid">
-        <div class="form-group">
-            <label class="form-label">College Name</label>
-            <input type="text" id="college-name" class="form-control" placeholder="e.g. College of Engineering" required>
-        </div>
-        <div class="form-group">
-            <label class="form-label">Nickname</label>
-            <input type="text" id="college-code" class="form-control" placeholder="e.g. COE" required>
-        </div>
-    </div>
-    <button class="btn btn-primary" onclick="addCollege()">
-        <i class="fas fa-plus"></i> Add College
-    </button>
-
-    <div style="margin-top: 30px;">
-        <h4>Existing Colleges</h4>
-        <div class="table-container" style="margin-top: 15px;">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>College Name</th>
-                        <th>Nickname</th>
-                        <th>Programs</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="collegeTableBody">
-                    <?php include 'fetch_colleges.php'; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+                
 
 
-                            <div id="subtab-programs" class="subtab-content" style="display: none;">
-    <div class="form-grid">
-        <div class="form-group">
-            <label class="form-label">Program Name</label>
-            <input type="text" id="program-name" class="form-control" placeholder="e.g. Computer Science">
-        </div>
-        <div class="form-group">
-            <label class="form-label">Select College</label>
-            <select id="program-college" class="form-control form-select" required>
-                <option value="">Select College</option>
-                <?php include 'fetch_colleges.php?mode=select'; ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-label">Program Duration (Years)</label>
-            <input type="number" id="program-duration" class="form-control" placeholder="4">
-        </div>
-    </div>
-    <button class="btn btn-primary" onclick="addProgram()">
-        <i class="fas fa-plus"></i>
-        Add Program
-    </button>
-
-    <!-- PROGRAM TABLE -->
-    <div style="margin-top: 30px;">
-        <h4>Existing Programs</h4>
-        <div class="table-container" style="margin-top: 15px;">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Program Name</th>
-                        <th>College</th>
-                        <th>Duration (Years)</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="programTableBody">
-                    <?php include 'fetch_programs.php'; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-                            <div id="subtab-majors" class="subtab-content" style="display: none;">
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label class="form-label">Major Name (Optional)</label>
-                                        <input type="text" id="major-name" class="form-control" placeholder="e.g. Data Science">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Select Program</label>
-                                        <select id="major-program" class="form-control form-select">
-                                            <option>Select Program</option>
-                                            <option>Computer Science</option>
-                                            <option>Information Technology</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary" onclick="addMajor()">
-                                    <i class="fas fa-plus"></i>
-                                    Add Major
-                                </button>
-                            </div>
-
-                            <div id="subtab-year-levels" class="subtab-content" style="display: none;">
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label class="form-label">Year Level</label>
-                                        <select class="form-control form-select">
-                                            <option>1st Year</option>
-                                            <option>2nd Year</option>
-                                            <option>3rd Year</option>
-                                            <option>4th Year</option>
-                                            <option>5th Year</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Select Program</label>
-                                        <select id="year-program" class="form-control form-select">
-                                            <option>Select Program</option>
-                                            <option>Computer Science</option>
-                                            <option>Information Technology</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary" onclick="addYearLevel()">
-                                    <i class="fas fa-plus"></i>
-                                    Add Year Level
-                                </button>
-                            </div>
-
-                            <div id="subtab-sections" class="subtab-content" style="display: none;">
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <label class="form-label">Section Name</label>
-                                        <input type="text" id="section" class="form-control" placeholder="e.g. CS-401">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Select Program</label>
-                                        <select id="section-program" class="form-control form-select">
-                                            <option>Select Program</option>
-                                            <option>Computer Science</option>
-                                            <option>Information Technology</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Select Year Level</label>
-                                        <select id="section-year" class="form-control form-select">
-                                            <option>Select Year Level</option>
-                                            <option>1st Year</option>
-                                            <option>2nd Year</option>
-                                            <option>3rd Year</option>
-                                            <option>4th Year</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary" onclick="addSection()">
-                                    <i class="fas fa-plus"></i>
-                                    Add Section
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- View Structure Tab -->
-                        <div id="view-structure-tab" class="config-content" style="display: none;">
-                            <div class="chart-container">
-                                <div class="chart-header">
-                                    <h3 class="chart-title">Academic Structure Overview</h3>
-                                    <button class="btn btn-outline">
-                                        <i class="fas fa-download"></i>
-                                        Export Structure
-                                    </button>
-                                </div>
-                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                                    <div class="stat-card">
-                                        <div class="stat-card-header">
-                                            <div class="stat-icon primary">
-                                                <i class="fas fa-building"></i>
-                                            </div>
-                                        </div>
-                                        <div class="stat-value">8</div>
-                                        <div class="stat-label">Total Colleges</div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-card-header">
-                                            <div class="stat-icon success">
-                                                <i class="fas fa-graduation-cap"></i>
-                                            </div>
-                                        </div>
-                                        <div class="stat-value">45</div>
-                                        <div class="stat-label">Academic Programs</div>
-                                    </div>
-                                    <div class="stat-card">
-                                        <div class="stat-card-header">
-                                            <div class="stat-icon info">
-                                                <i class="fas fa-users"></i>
-                                            </div>
-                                        </div>
-                                        <div class="stat-value">234</div>
-                                        <div class="stat-label">Total Sections</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Email Templates Tab -->
-                        <div id="email-templates-tab" class="config-content" style="display: none;">
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label class="form-label">Template Name</label>
-                                    <input type="text" class="form-control" placeholder="e.g. Welcome Email">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Template Type</label>
-                                    <select class="form-control form-select">
-                                        <option>User Registration</option>
-                                        <option>Account Approval</option>
-                                        <option>Password Reset</option>
-                                        <option>System Notification</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Email Subject</label>
-                                <input type="text" class="form-control" placeholder="Welcome to ExcelLens">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Email Content</label>
-                                <textarea class="form-control" rows="10" placeholder="Email template content..."></textarea>
-                            </div>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-save"></i>
-                                Save Template
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Analytics Module -->
-                <div id="analytics" class="module-container" style="display: none;">
-                    <div class="module-header">
-                        <h2 class="module-title">
-                            <i class="fas fa-chart-line"></i>
-                            Analytics & Reports
-                        </h2>
-                    </div>
-                    <div class="module-body">
-                        <div class="stats-grid">
-                            <div class="chart-container">
-                                <div class="chart-header">
-                                    <h3 class="chart-title">User Growth</h3>
-                                    <select class="form-control" style="width: auto;">
-                                        <option>Last 6 months</option>
-                                        <option>Last year</option>
-                                    </select>
-                                </div>
-                                <div class="chart-wrapper">
-                                    <i class="fas fa-chart-line fa-3x"></i>
-                                    <span style="margin-left: 15px;">Line chart visualization</span>
-                                </div>
-                            </div>
-
-                            <div class="chart-container">
-                                <div class="chart-header">
-                                    <h3 class="chart-title">User Distribution by Role</h3>
-                                </div>
-                                <div class="chart-wrapper">
-                                    <i class="fas fa-chart-pie fa-3x"></i>
-                                    <span style="margin-left: 15px;">Pie chart visualization</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Reports Module -->
-                <div id="reports" class="module-container" style="display: none;">
-                    <div class="module-header">
-                        <h2 class="module-title">
-                            <i class="fas fa-file-alt"></i>
-                            System Reports
-                        </h2>
-                    </div>
-                    <div class="module-body">
-                        <div class="stats-grid">
-                            <div class="stat-card" style="cursor: pointer;" onclick="generateReport('users')">
-                                <div class="stat-card-header">
-                                    <div class="stat-icon primary">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                </div>
-                                <div class="stat-label">User Activity Report</div>
-                                <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;">Generate comprehensive user activity and engagement reports</p>
-                            </div>
-
-                            <div class="stat-card" style="cursor: pointer;" onclick="generateReport('academic')">
-                                <div class="stat-card-header">
-                                    <div class="stat-icon success">
-                                        <i class="fas fa-graduation-cap"></i>
-                                    </div>
-                                </div>
-                                <div class="stat-label">Academic Structure Report</div>
-                                <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;">Export academic programs, colleges, and enrollment data</p>
-                            </div>
-
-                            <div class="stat-card" style="cursor: pointer;" onclick="generateReport('system')">
-                                <div class="stat-card-header">
-                                    <div class="stat-icon info">
-                                        <i class="fas fa-cogs"></i>
-                                    </div>
-                                </div>
-                                <div class="stat-label">System Performance Report</div>
-                                <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;">Monitor system performance and usage statistics</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Settings Module -->
-                <div id="settings" class="module-container" style="display: none;">
-                    <div class="module-header">
-                        <h2 class="module-title">
-                            <i class="fas fa-sliders-h"></i>
-                            System Settings
-                        </h2>
-                    </div>
-                    <div class="module-body">
-                        <div class="nav-tabs">
-                            <div class="nav-tab active" onclick="showSettingsTab('general')">
-                                <i class="fas fa-cog"></i>
-                                General
-                            </div>
-                            <div class="nav-tab" onclick="showSettingsTab('security')">
-                                <i class="fas fa-shield-alt"></i>
-                                Security
-                            </div>
-                            <div class="nav-tab" onclick="showSettingsTab('notifications')">
-                                                                <i class="fas fa-bell"></i>
-                                Notifications
-                            </div>
-                            <div class="nav-tab" onclick="showSettingsTab('backup')">
-                                <i class="fas fa-database"></i>
-                                Backup
-                            </div>
-                        </div>
-
-                        <!-- General Settings Tab -->
-                        <div id="general-settings-tab" class="settings-content">
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label class="form-label">System Name</label>
-                                    <input type="text" class="form-control" value="ExcelLens">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Default Theme</label>
-                                    <select class="form-control form-select">
-                                        <option>Light</option>
-                                        <option>Dark</option>
-                                        <option>System Preference</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Timezone</label>
-                                    <select class="form-control form-select">
-                                        <option>Asia/Manila (UTC+8)</option>
-                                        <option>UTC</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Date Format</label>
-                                    <select class="form-control form-select">
-                                        <option>MM/DD/YYYY</option>
-                                        <option>DD/MM/YYYY</option>
-                                        <option>YYYY-MM-DD</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-save"></i>
-                                Save Settings
-                            </button>
-                        </div>
-
-                        <!-- Security Settings Tab -->
-                        <div id="security-settings-tab" class="settings-content" style="display: none;">
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label class="form-label">Password Policy</label>
-                                    <select class="form-control form-select">
-                                        <option>Medium (8+ characters)</option>
-                                        <option>Strong (12+ characters with complexity)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Session Timeout</label>
-                                    <select class="form-control form-select">
-                                        <option>30 minutes</option>
-                                        <option>1 hour</option>
-                                        <option>2 hours</option>
-                                        <option>4 hours</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Failed Login Attempts</label>
-                                    <select class="form-control form-select">
-                                        <option>5 attempts</option>
-                                        <option>10 attempts</option>
-                                        <option>No limit</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Two-Factor Authentication</label>
-                                    <select class="form-control form-select">
-                                        <option>Disabled</option>
-                                        <option>Optional</option>
-                                        <option>Required for Admins</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-save"></i>
-                                Update Security Settings
-                            </button>
-                        </div>
-
-                        <!-- Notification Settings Tab -->
-                        <div id="notification-settings-tab" class="settings-content" style="display: none;">
-                            <div class="form-group">
-                                <label class="form-label">Email Notifications</label>
-                                <div style="margin-top: 10px;">
-                                    <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                                        <input type="checkbox" checked>
-                                        System alerts and notifications
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                                        <input type="checkbox" checked>
-                                        User registration approvals
-                                    </label>
-                                    <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                                        <input type="checkbox">
-                                        Weekly summary reports
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Notification Email Address</label>
-                                <input type="email" class="form-control" value="admin@batstate-u.edu.ph">
-                            </div>
-                            <button class="btn btn-primary">
-                                <i class="fas fa-save"></i>
-                                Update Notification Settings
-                            </button>
-                        </div>
-
-                        <!-- Backup Settings Tab -->
-                        <div id="backup-settings-tab" class="settings-content" style="display: none;">
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label class="form-label">Backup Frequency</label>
-                                    <select class="form-control form-select">
-                                        <option>Daily</option>
-                                        <option>Weekly</option>
-                                        <option>Monthly</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Backup Storage</label>
-                                    <select class="form-control form-select">
-                                        <option>Local Server</option>
-                                        <option>Cloud Storage</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Last Backup</label>
-                                    <input type="text" class="form-control" value="July 15, 2023 03:45 AM" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Backup Status</label>
-                                    <input type="text" class="form-control" value="Completed successfully" readonly>
-                                </div>
-                            </div>
-                            <div style="margin-top: 20px; display: flex; gap: 15px;">
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-download"></i>
-                                    Create Backup Now
-                                </button>
-                                <button class="btn btn-outline">
-                                    <i class="fas fa-history"></i>
-                                    Restore from Backup
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
+    <!-- Modals -->
+    <div class="modal" id="editCollegeModal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit College</h3>
+                <button class="close-modal" onclick="closeModal('editCollegeModal')">&times;</button>
+            </div>
+            <form method="POST">
+                <input type="hidden" name="action" value="update_college">
+                <input type="hidden" name="id" id="edit-college-id">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Abbreviation</label>
+                        <input type="text" name="code" id="edit-college-code" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">College Name</label>
+                        <input type="text" name="name" id="edit-college-name" class="form-control" required>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('editCollegeModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        let currentDeleteId = null;
-        // Toggle sidebar collapse/expand
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('collapsed');
-        }
-
-        // Toggle mobile sidebar
-        function toggleMobileSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('mobile-open');
-        }
-
+       
         // Toggle dark/light theme
         function toggleTheme() {
             document.body.setAttribute('data-theme', 
@@ -1858,9 +898,8 @@
             document.getElementById(`${type}-accounts`).style.display = 'block';
             
             // Update active tab
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
+            const userTypeTabs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+            userTypeTabs.forEach(tab => tab.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
 
@@ -1875,9 +914,8 @@
             document.getElementById(`${tab}-tab`).style.display = 'block';
             
             // Update active tab
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
+            const configTabs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+            configTabs.forEach(tab => tab.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
 
@@ -1910,237 +948,207 @@
             document.getElementById(`${tab}-settings-tab`).style.display = 'block';
             
             // Update active tab
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
+            const settingsTabs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+            settingsTabs.forEach(tab => tab.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
-
-        // Generate report
-        function generateReport(type) {
-            alert(`Generating ${type} report...`);
-            // In a real application, this would trigger an API call to generate the report
+        
+        function openEditModal(id, name, code) {
+            document.getElementById('edit-college-id').value = id;
+            document.getElementById('edit-college-name').value = name;
+            document.getElementById('edit-college-code').value = code;
+            document.getElementById('editCollegeModal').style.display = 'flex';
         }
 
-        // Add college
-        function addCollege() {
-    const name = document.getElementById("college-name").value.trim();
-    const nick = document.getElementById("college-code").value.trim();
-
-    if (name === "" || nick === "") {
-        alert("Please fill in both fields.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("deptname", name);
-    formData.append("deptnick", nick);
-
-    fetch("add_college.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert("College added successfully!");
-            location.reload();
-        } else {
-            alert("Error: " + data.error);
-        }
-    })
-    .catch(err => alert("Request failed: " + err));
-}
-
-function submitEditCollege() {
-    const deptid = document.getElementById("edit-deptid").value;
-    const name = document.getElementById("edit-college-name").value;
-    const nick = document.getElementById("edit-college-nick").value;
-
-    const formData = new FormData();
-    formData.append("deptid", deptid);
-    formData.append("deptname", name);
-    formData.append("deptnick", nick);
-
-    fetch("update_college.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert("College updated successfully!");
-            location.reload();
-        } else {
-            alert("Update failed: " + data.error);
-        }
-    });
-}
-
-function confirmDeleteCollege(deptid) {
-    currentDeleteId = deptid;
-    document.getElementById("delete-deptid").value = deptid;
-    document.getElementById("deleteCollegeModal").style.display = "block";
-    document.getElementById("modalOverlay").style.display = "block";
-}
-
-function closeDeleteModal() {
-    document.getElementById("deleteCollegeModal").style.display = "none";
-    document.getElementById("modalOverlay").style.display = "none";
-    currentDeleteId = null;
-}
-
-function deleteCollege() {
-    const deptid = document.getElementById("delete-deptid").value;
-
-    const formData = new FormData();
-    formData.append("deptid", deptid);
-
-    fetch("delete_college.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert("College deleted successfully.");
-            location.reload();
-        } else {
-            alert("Error deleting college: " + data.error);
-        }
-    });
-
-    closeDeleteModal();
-}
-
-        // Add program
-        function addProgram() {
-    const progname = document.getElementById("program-name").value.trim();
-    const deptid = document.getElementById("program-college").value;
-    const progyear = document.getElementById("program-duration").value.trim();
-
-    if (progname === "" || deptid === "" || progyear === "") {
-        alert("Please fill out all fields.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("progname", progname);
-    formData.append("deptid", deptid);
-    formData.append("progyear", progyear);
-
-    fetch("add_program.php", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert("Program added successfully!");
-            // Optionally reload or reset form
-            document.getElementById("program-name").value = "";
-            document.getElementById("program-college").value = "";
-            document.getElementById("program-duration").value = "";
-        } else {
-            alert("Error: " + data.error);
-        }
-    })
-    .catch(err => alert("Request failed: " + err));
-}
-
-        // Add major
-        function addMajor() {
-            const name = document.getElementById('major-name').value;
-            const program = document.getElementById('major-program').value;
-            
-            if (program !== 'Select Program') {
-                alert(`Adding major: ${name || 'No major name'} to ${program}`);
-            } else {
-                alert('Please select a program');
-            }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
         }
 
-        // Add year level
-        function addYearLevel() {
-            const program = document.getElementById('year-program').value;
-            
-            if (program !== 'Select Program') {
-                alert(`Adding year level to ${program}`);
-            } else {
-                alert('Please select a program');
-            }
-        }
-
-        // Add section
-        function addSection() {
-            const name = document.getElementById('section').value;
-            const program = document.getElementById('section-program').value;
-            const year = document.getElementById('section-year').value;
-            
-            if (name && program !== 'Select Program' && year !== 'Select Year Level') {
-                alert(`Adding section: ${name} to ${program} (${year})`);
-            } else {
-                alert('Please fill all section details');
-            }
-        }
 
         // Initialize the dashboard
         document.addEventListener('DOMContentLoaded', function() {
             // Set dashboard as active module
             document.getElementById('dashboard').style.display = 'block';
+            document.querySelector('.nav-item').classList.add('active'); // Activate dashboard nav item
             
             // Check for prefers-color-scheme and set theme accordingly
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.body.setAttribute('data-theme', 'dark');
                 const themeToggle = document.querySelector('.theme-toggle i');
-                themeToggle.classList.remove('fa-moon');
-                themeToggle.classList.add('fa-sun');
+                if(themeToggle) {
+                    themeToggle.classList.remove('fa-moon');
+                    themeToggle.classList.add('fa-sun');
+                }
             }
         });
 
-        function openEditModal(deptid, name, nick) {
-    document.getElementById("edit-deptid").value = deptid;
-    document.getElementById("edit-college-name").value = name;
-    document.getElementById("edit-college-nick").value = nick;
-    document.getElementById("editCollegeModal").style.display = "block";
-    document.getElementById("modalOverlay").style.display = "block";
+//javscript for handling the tab switching of Academic Structure
+function showCampusTab(tabName) {
+    const tabs = document.querySelectorAll('.campus-tab-content');
+    tabs.forEach(tab => tab.style.display = 'none');
+    document.getElementById(tabName + '-tab').style.display = 'block';
+
+    const navTabs = document.querySelectorAll('.nav-tabs .nav-tab');
+    navTabs.forEach(tab => tab.classList.remove('active'));
+    event.currentTarget.classList.add('active');
 }
 
-function closeEditModal() {
-    document.getElementById("editCollegeModal").style.display = "none";
-    document.getElementById("modalOverlay").style.display = "none";
+// Show/hide college tabs
+function showCollegeTab(tab) {
+    // Hide all college tabs
+    document.querySelectorAll('.college-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected college tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const collegeNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    collegeNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
 }
 
+// Show/hide program tabs
+function showProgramTab(tab) {
+    // Hide all program tabs
+    document.querySelectorAll('.program-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected program tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const programNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    programNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+}
+
+// Show/hide major tabs
+function showMajorTab(tab) {
+    // Hide all major tabs
+    document.querySelectorAll('.major-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected major tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const majorNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    majorNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+}
+
+// Show/hide year level tabs
+function showYearLevelTab(tab) {
+    // Hide all year level tabs
+    document.querySelectorAll('.year-level-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected year level tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const yearLevelNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    yearLevelNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+}
+
+// Show/hide section tabs
+function showSectionTab(tab) {
+    // Hide all section tabs
+    document.querySelectorAll('.section-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected section tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const sectionNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    sectionNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+}
+
+
+
+//Javascript for the Account management module
+
+// Show/hide VCAA tabs
+function showVCAATab(tab) {
+    // Hide all VCAA tabs
+    document.querySelectorAll('.vcaa-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected VCAA tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const vcaaNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    vcaaNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+}
+
+// Show/hide Dean tabs
+function showDeanTab(tab) {
+    // Hide all Dean tabs
+    document.querySelectorAll('.dean-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected Dean tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const deanNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    deanNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+}
+
+// Show/hide Chair tabs
+function showChairTab(tab) {
+    // Hide all Chair tabs
+    document.querySelectorAll('.chair-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    // Show selected Chair tab
+    document.getElementById(`${tab}-tab`).style.display = 'block';
+    
+    // Update active tab
+    const chairNavs = event.currentTarget.parentElement.querySelectorAll('.nav-tab');
+    chairNavs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+}
+function searchTable(tableId, query) {
+    const table = document.getElementById(tableId);
+    const rows = table.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        const nameCell = row.cells[0]?.textContent.toLowerCase();
+        row.style.display = nameCell.includes(query.toLowerCase()) ? "" : "none";
+    });
+}
 
     </script>
-
-    <!-- Edit College Modal -->
-<div id="editCollegeModal" style="display: none; position: fixed; top: 20%; left: 30%; width: 40%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
-    <h3>Edit College</h3>
-    <input type="hidden" id="edit-deptid">
-    <div class="form-group">
-        <label>College Name</label>
-        <input type="text" id="edit-college-name" class="form-control">
-    </div>
-    <div class="form-group">
-        <label>Nickname</label>
-        <input type="text" id="edit-college-nick" class="form-control">
-    </div>
-    <button class="btn btn-primary" onclick="submitEditCollege()">Save Changes</button>
-    <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
-</div>
-
-<!-- Background Overlay -->
-<div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;" onclick="closeEditModal()"></div>
-
-<div id="deleteCollegeModal" style="display: none; position: fixed; top: 25%; left: 35%; width: 30%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
-    <h3>Confirm Deletion</h3>
-    <p>Are you sure you want to delete this college?</p>
-    <input type="hidden" id="delete-deptid">
-    <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
-        <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
-        <button class="btn btn-danger" onclick="deleteCollege()">Delete</button>
-    </div>
-</div>
 </body>
 </html>
